@@ -61,7 +61,7 @@ export default function CheckoutForm() {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: `https://mern-ecommerce-lyart.vercel.app/order-success/${currentOrder.id}`,
+        return_url: `http://localhost:3000/order-success/${currentOrder.id}`,
       },
     });
 
@@ -85,7 +85,9 @@ export default function CheckoutForm() {
 
   return (
     <form id="payment-form" onSubmit={handleSubmit}>
+      
       <PaymentElement id="payment-element" options={paymentElementOptions} />
+      
       <button disabled={isLoading || !stripe || !elements} id="submit">
         <span id="button-text">
           {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}

@@ -20,8 +20,8 @@ function classNames(...classes) {
 
 
 export default function ProductDetail() {
-  const [selectedColor, setSelectedColor] = useState();
-  const [selectedSize, setSelectedSize] = useState();
+  // const [selectedColor, setSelectedColor] = useState();
+  // const [selectedSize, setSelectedSize] = useState();
   const items = useSelector(selectItems);
   const product = useSelector(selectProductById);
   const dispatch = useDispatch();
@@ -32,17 +32,17 @@ export default function ProductDetail() {
   const handleCart = (e) => {
     e.preventDefault();
     if (items.findIndex((item) => item.product.id === product.id) < 0) {
-      console.log({ items, product });
+      
       const newItem = {
         product: product.id,
         quantity: 1,
       };
-      if (selectedColor) {
-        newItem.color = selectedColor;
-      }
-      if (selectedSize) {
-        newItem.size = selectedSize;
-      }
+      // if (selectedColor) {
+      //   newItem.color = selectedColor;
+      // }
+      // if (selectedSize) {
+      //   newItem.size = selectedSize;
+      // }
       dispatch(addToCartAsync({item:newItem, alert}));
     } else {
       alert.error('Item Already added');
@@ -155,7 +155,7 @@ export default function ProductDetail() {
                 ${product.price}
               </p>
               <p className="text-3xl tracking-tight text-gray-900">
-                ${product.discountPrice}
+                ${product.discountedPrice}
               </p>
 
               {/* Reviews */}
@@ -181,7 +181,7 @@ export default function ProductDetail() {
               </div>
 
               <form className="mt-10">
-                {/* Colors */}
+                {/* Colors
                 {product.colors && product.colors.length > 0 && (
                   <div>
                     <h3 className="text-sm font-medium text-gray-900">Color</h3>
@@ -223,9 +223,9 @@ export default function ProductDetail() {
                       </div>
                     </RadioGroup>
                   </div>
-                )}
+                )} */}
 
-                {/* Sizes */}
+                {/* Sizes
                 {product.sizes && product.sizes.length > 0 && (
                   <div className="mt-10">
                     <div className="flex items-center justify-between">
@@ -253,10 +253,10 @@ export default function ProductDetail() {
                           <RadioGroup.Option
                             key={size.name}
                             value={size}
-                            disabled={!size.inStock}
+                            disabled={!product.stock}
                             className={({ active }) =>
                               classNames(
-                                size.inStock
+                                product.stock
                                   ? 'cursor-pointer bg-white text-gray-900 shadow-sm'
                                   : 'cursor-not-allowed bg-gray-50 text-gray-200',
                                 active ? 'ring-2 ring-indigo-500' : '',
@@ -269,7 +269,7 @@ export default function ProductDetail() {
                                 <RadioGroup.Label as="span">
                                   {size.name}
                                 </RadioGroup.Label>
-                                {size.inStock ? (
+                                {product.stock ? (
                                   <span
                                     className={classNames(
                                       active ? 'border' : 'border-2',
@@ -308,7 +308,7 @@ export default function ProductDetail() {
                       </div>
                     </RadioGroup>
                   </div>
-                )}
+                )} */}
 
                 <button
                   onClick={handleCart}

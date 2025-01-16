@@ -3,7 +3,8 @@ const { Product } = require('../model/Product');
 exports.createProduct = async (req, res) => {
   // this product we have to get from API body
   const product = new Product(req.body);
-  product.discountPrice = Math.round(product.price*(1-product.discountPercentage/100))
+  product.discountedPrice = Math.round(product.price*(1-product.discountPercentage/100))
+  console.log(product)
   try {
     const doc = await product.save();
     res.status(201).json(doc);
@@ -73,7 +74,7 @@ exports.updateProduct = async (req, res) => {
   const { id } = req.params;
   try {
     const product = await Product.findByIdAndUpdate(id, req.body, {new:true});
-    product.discountPrice = Math.round(product.price*(1-product.discountPercentage/100))
+    product.discountedPrice = Math.round(product.price*(1-product.discountPercentage/100))
     const updatedProduct = await product.save()
     res.status(200).json(updatedProduct);
   } catch (err) {

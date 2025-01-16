@@ -6,12 +6,45 @@ let transporter = nodemailer.createTransport({
   port: 587,
   secure: false, // true for 465, false for other ports
   auth: {
-    user: 'yuniyal4444@gmail.com', // gmail
+    user: "uniyaly04@gmail.com", // gmail
     pass: process.env.MAIL_PASSWORD, // pass
   },
 });
+transporter.verify((error, success) => {
+  if (error) {
+    console.error("Transporter configuration failed:", error);
+  } else {
+    console.log("Transporter is ready to send messages");
+  }
+});
+// async function sendTestEmail() {
+//   try {
+//     const transporter = nodemailer.createTransport({
+//       host: 'smtp.gmail.com',
+//       port: 587,
+//       secure: false,
+//       auth: {
+//         user: 'uniyaly04@gmail.com',  // Use your Gmail
+//         pass: process.env.MAIL_PASSWORD,  // Use the app password
+//       },
+//     });
+
+//     const mailOptions = {
+//       from: 'uniyaly04@gmail.com',
+//       to: 'yuniyal41@gmail.com',
+//       subject: 'Test Email',
+//       text: 'This is a test email sent using Nodemailer.',
+//     };
+
+//     const info = await transporter.sendMail(mailOptions);
+//     console.log('Email sent: ', info.response);
+//   } catch (error) {
+//     console.error('Error sending email: ', error);
+//   }
+// }
 
 
+console.log(process.env.MAIL_PASSWORD)
 exports.isAuth = (req, res, done) => {
   return passport.authenticate('jwt');
 };
@@ -31,7 +64,7 @@ exports.cookieExtractor = function (req) {
 
 exports.sendMail = async function ({to, subject, text, html}){
     let info = await transporter.sendMail({
-        from: '"online order" <yuniyal4444@gmail.com>', // sender address
+        from: '"online order" <uniyal04@gmail.com>', // sender address
         to,
         subject,
         text,

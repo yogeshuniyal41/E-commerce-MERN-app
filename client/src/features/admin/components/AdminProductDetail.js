@@ -156,7 +156,7 @@ export default function AdminProductDetail() {
                 ${product.price}
               </p>
               <p className="text-3xl tracking-tight text-gray-900">
-                ${product.discountPrice}
+                ${product.discountedPrice}
               </p>
 
               {/* Reviews */}
@@ -254,10 +254,10 @@ export default function AdminProductDetail() {
                           <RadioGroup.Option
                             key={size.name}
                             value={size}
-                            disabled={!size.inStock}
+                            disabled={!product.stock}
                             className={({ active }) =>
                               classNames(
-                                size.inStock
+                                product.stock
                                   ? 'cursor-pointer bg-white text-gray-900 shadow-sm'
                                   : 'cursor-not-allowed bg-gray-50 text-gray-200',
                                 active ? 'ring-2 ring-indigo-500' : '',
@@ -270,7 +270,7 @@ export default function AdminProductDetail() {
                                 <RadioGroup.Label as="span">
                                   {size.name}
                                 </RadioGroup.Label>
-                                {size.inStock ? (
+                                {product.stock ? (
                                   <span
                                     className={classNames(
                                       active ? 'border' : 'border-2',

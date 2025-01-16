@@ -31,20 +31,28 @@ function Checkout() {
   const status = useSelector(selectStatus);
   const currentOrder = useSelector(selectCurrentOrder);
 
-  const totalAmount = items.reduce(
-    (amount, item) => item.product.discountPrice * item.quantity + amount,
-    0
-  );
+  const totalAmount = Math.round(
+    items.reduce(
+      (amount, item) => item.product.discountedPrice * item.quantity + amount,
+      0
+    ) * 100
+  ) / 100;
+  console.log(totalAmount)
   const totalItems = items.reduce((total, item) => item.quantity + total, 0);
 
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [paymentMethod, setPaymentMethod] = useState(null);
 
   const handleQuantity = (e, item) => {
+    console.log("ujhbukbj")
+    if(item.product.stock >=e.target.value)
     dispatch(updateCartAsync({ id: item.id, quantity: +e.target.value }));
+    else alert("Out of stock")
+    console.log(item)
   };
 
   const handleRemove = (e, id) => {
+    
     dispatch(deleteItemFromCartAsync(id));
   };
 
@@ -428,7 +436,7 @@ function Checkout() {
                                 </a>
                               </h3>
                               <p className="ml-4">
-                                ${item.product.discountPrice}
+                                ${item.product.discountedPrice}
                               </p>
                             </div>
                             <p className="mt-1 text-sm text-gray-500">
@@ -475,7 +483,7 @@ function Checkout() {
               <div className="border-t border-gray-200 px-2 py-6 sm:px-2">
                 <div className="flex justify-between my-2 text-base font-medium text-gray-900">
                   <p>Subtotal</p>
-                  <p>$ {totalAmount}</p>
+                  <p>$ {totalAmount}</p>{console.log(totalAmount)}
                 </div>
                 <div className="flex justify-between my-2 text-base font-medium text-gray-900">
                   <p>Total Items in Cart</p>
