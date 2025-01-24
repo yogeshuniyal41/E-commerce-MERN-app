@@ -28,8 +28,8 @@ import { ITEMS_PER_PAGE } from '../../../app/constants';
 
 const sortOptions = [
   { name: 'Best Rating', sort: 'rating', order: 'desc', current: false },
-  { name: 'Price: Low to High', sort: 'discountPrice', order: 'asc', current: false },
-  { name: 'Price: High to Low', sort: 'discountPrice', order: 'desc', current: false },
+  { name: 'Price: Low to High', sort: 'discountedPrice', order: 'asc', current: false },
+  { name: 'Price: High to Low', sort: 'discountedPrice', order: 'desc', current: false },
 ];
 
 function classNames(...classes) {
